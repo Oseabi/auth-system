@@ -14,6 +14,9 @@ app.use(express.json())
 // ---- ROUTES ----
 app.use('/api/auth', authRoutes)
 
+const notesRoutes = require('./src/routes/notes')
+app.use('/api/notes', notesRoutes)
+
 // ---- HEALTH CHECK ----
 app.get('/', (req, res) => {
   res.json({
@@ -23,7 +26,6 @@ app.get('/', (req, res) => {
   })
 })
 
-// ---- 404 HANDLER ----
 app.use((req, res) => {
   res.status(404).json({
     success: false,
@@ -31,7 +33,6 @@ app.use((req, res) => {
   })
 })
 
-// ---- ERROR HANDLER ----
 app.use((err, req, res, next) => {
   console.error('Unhandled error:', err)
   res.status(500).json({
@@ -40,7 +41,6 @@ app.use((err, req, res, next) => {
   })
 })
 
-// ---- START SERVER ----
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`)
 })
